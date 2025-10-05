@@ -1,0 +1,26 @@
+version: '3.8'
+
+services:
+  # 1. Next.js Frontend (Web Application)
+  frontend:
+    container_name: rep-web-frontend
+    build:
+      context: ./frontend
+      # Dockerfile path is relative to the context (./frontend/Dockerfile)
+      dockerfile: Dockerfile 
+    ports:
+      - "3000:3000" # Maps host port 3000 to container port 3000
+    volumes:
+      # Mounts the source code for hot reloading during development
+      - ./frontend:/app
+      # Prevents host node_modules from overwriting container's node_modules
+      - /app/node_modules
+    restart: always
+    environment:
+      - NODE_ENV=development
+
+  # 2. (Optional Placeholder for Future Backend/Database - e.g., Yii2 or PostgreSQL)
+  # backend:
+  #   ...
+  # db:
+  #   ...
